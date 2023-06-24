@@ -1,0 +1,5 @@
+
+*.dds
+*.webp
+*.png
+node_modules
