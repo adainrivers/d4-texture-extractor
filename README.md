@@ -1,5 +1,9 @@
 # Diablo 4 Texture Extractor
 
+## What it does
+
+It converts .tex files to png, webp or jpg. Also slices the files into separate image files when applicable.
+
 ## Known Issues
 
 - Only 2 texture formats are supported at this time, 47 and 49, working on the rest. If you wanna experiment, you can add more to `config.js`.
