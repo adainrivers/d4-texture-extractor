@@ -38,6 +38,6 @@ Options:
   -t, --textures <path>        path to folder containing textures extracted with CASCExplorer
   -d, --texturedata <path>     path to 'd4data\json\base\meta\Texture' folder
   -o, --outputformat <format>  png, jpg or webp
-  -f, --filter <wildcard>      Wildcard to filter files to process, for example '2DUI*', no need to include .json extension, default is '*'
+  -f, --filter <wildcard>      Wildcard to filter files to process, for example 2DUI*, no need to include .json extension, default is *
   -h, --help                   display help for command
 ```
