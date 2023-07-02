@@ -1,9 +1,9 @@
-const config = require('../config');
+const { options } = require('../options');
 const fs = require('fs/promises');
 const path = require('path');
 
 async function getTextureDataFilesAsync(){
-    const files = await fs.readdir(config.textureDataFolder);
+    const files = await fs.readdir(options.textureDataFolder);
     return files.filter(file => path.extname(file) === '.json');
 }
 

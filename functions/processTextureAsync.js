@@ -1,3 +1,4 @@
+const { options } = require('../options');
 const config = require('../config');
 const fs = require('fs/promises');
 const path = require('path');
@@ -9,33 +10,34 @@ const runCommand = require('./runCommand');
 
 async function processTextureAsync(dataFile) {
     const key = path.basename(dataFile).slice(0, -9);
-    const data = await readJsonFileAsync(path.join(config.textureDataFolder, dataFile));
+    const data = await readJsonFileAsync(path.join(options.textureDataFolder, dataFile));
 
     // const formats = ['BC1', 'BC2', 'BC3', 'BC4', 'BC5U', 'BC5S', 'BC6', 'BC7', 'DXT1', 'DXT3', 'DXT5'];
     //const formats = ['BC1', 'BC3'];
     try {
-        if (data.eTexFormat == 49) {
-            await processTextureInternal(key, data, 'BC3', 64);
+        const parameters = config.textureFormats[data.eTexFormat];
+        if(!parameters) {
+            console.log('unknown format', dataFile, data.eTexFormat);
+            return;
         }
-        if (data.eTexFormat == 47) {
-            await processTextureInternal(key, data, 'BC1', 128);
-        }
+        await processTextureInternal(key, data, parameters.format, parameters.widthRoundUp);
+        
     } catch (error) {
         console.log('error', error);
     }
 }
 
 async function processTextureInternal(key, data, format, base) {
-    const textureFilePath = path.join(config.textureFolder, `${key}.tex`);
-    const ddsSourceFilePath = path.join(config.textureFolder, `${key}.dds`);
-    const outputFolder = path.resolve(`./${config.outputFormat}`);
+    const textureFilePath = path.join(options.textureFolder, `${key}.tex`);
+    const ddsSourceFilePath = path.join(options.textureFolder, `${key}.dds`);
+    const outputFolder = path.resolve(`./${options.outputFormat}`);
 
     await fs.mkdir(outputFolder, { recursive: true });
 
-    const rawTexCommand = buildCommandLine(config.rawTexCommandLine, [`"${textureFilePath}"`, format, '0', roundUp(data.dwWidth, base), roundUp(data.dwHeight, base)]);
+    const rawTexCommand = buildCommandLine(options.rawTexCommandLine, [`"${textureFilePath}"`, format, '0', roundUp(data.dwWidth, base), roundUp(data.dwHeight, base)]);
     console.log('converting tex:', textureFilePath)
     runCommand(rawTexCommand);
-    const texconvCommand = buildCommandLine(config.texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${outputFolder}"`]);
+    const texconvCommand = buildCommandLine(options.texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${outputFolder}"`]);
     try {
         console.log('converting dds:', ddsSourceFilePath)
         runCommand(texconvCommand);
@@ -47,12 +49,12 @@ async function processTextureInternal(key, data, format, base) {
     let croppedFilePath;
     const sliceCoords = calculateSliceCoords(data.ptFrame, data.dwWidth, data.dwHeight);
     const pngFilePath = path.join(outputFolder, `${key}.png`);
-    const finalFilePath = path.join(outputFolder, `${key}.${config.outputFormat}`);
+    const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
     if (sliceCoords.length > 0) {
-        croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, config.outputFormat);
-        await sliceImageAsync(pngFilePath, sliceCoords, config.outputFormat);
+        croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
+        await sliceImageAsync(pngFilePath, sliceCoords, options.outputFormat);
     } else {
-        croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, config.outputFormat);
+        croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
     }
     await fs.rm(pngFilePath);
     await fs.rm(ddsSourceFilePath);
