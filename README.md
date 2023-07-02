@@ -1,5 +1,9 @@
 # Diablo 4 Texture Extractor
 
+## Known Issues
+
+- Only 2 texture formats are supported at this time, 47 and 49, working on the rest. If you wanna experiment, you can add more to `config.js`.
+
 ## Installation
 
 1. Clone this repo
