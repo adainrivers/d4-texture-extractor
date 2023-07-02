@@ -29,7 +29,7 @@ It converts .tex files to png, webp or jpg. Also slices the files into separate 
 ## Usage
 
 ```
-Usage: index [options]
+Usage: node ./index.js [options]
 
 Options:
   -c, --concurrency <number>   number of concurrent tasks
