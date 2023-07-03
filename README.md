@@ -50,11 +50,11 @@ Options:
 ## Credits and thanks
 
 - [Nishimura-Katsuo](https://github.com/Nishimura-Katsuo) for [d4data](https://github.com/blizzhackers/d4data) and all the guidance.
-- WowTools Team for the beautiful [CASCExplorer](https://github.com/WoW-Tools/CASCExplorer)
+- WowTools Team for the beautiful [CASCExplorer](https://github.com/WoW-Tools/CASCExplorer).
 - [chuanhsing](https://www.reddit.com/user/chuanhsing) of [Diablo 4 Database](https://diablo4.cc/us/) for being a early tester and valuable feedback.
 - InterCeptor for providing all the texture formats.
-- daemon1 for inspiring work on [Rawtex tool](https://forum.xentax.com/viewtopic.php?t=16461)
-- Tspoon from [Map Genie](https://mapgenie.io/) for guiding me to start this
-- DevLeon from [Diablo 4 Map](https://diablo4.th.gl/) for his crazy bash scripts
+- daemon1 for inspiring work on [Rawtex tool](https://forum.xentax.com/viewtopic.php?t=16461).
+- Tspoon from [Map Genie](https://mapgenie.io/) for helping me to start this.
+- DevLeon from [Diablo 4 Map](https://diablo4.th.gl/) for his crazy bash scripts.
 
-And finally to [ChatGPT](https://openai.com/blog/chatgpt) for doing half of the work for me :)
+And finally to [ChatGPT](https://openai.com/blog/chatgpt) for doing half of the work for me. :)
