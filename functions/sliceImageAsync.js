@@ -15,6 +15,7 @@ async function sliceImageAsync(sourceImage, coordinates, outputFormat = 'png') {
     logger.debug('slicing:', sourceImage);
     try {
         for (let i = 0; i < coordinates.length; i++) {
+            logger.debug('slicing:', sourceImage, JSON.stringify(coordinates[i]));
             const { hImageHandle, x0, y0, x1, y1 } = coordinates[i];
             let outputFilePath;
             if(options.noslicefolders){

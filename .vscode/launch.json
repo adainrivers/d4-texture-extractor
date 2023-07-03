@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\index.js",
-            // "args": ["-f", "2DInventory_Bundle_MountArmor_stor001_Icons", "-c", "10" ,"-o", "webp", "-nsf"]
+            // "args": ["-f", "2DUI_FullScreenVignettes", "-c", "10" ,"-o", "webp", "-nsf"]
         }
     ]
 }
