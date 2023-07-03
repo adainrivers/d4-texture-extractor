@@ -11,8 +11,8 @@ The Diablo 4 Texture Extractor is a tool that extracts and converts .tex files t
 ## Installation
 
 1. Clone this repository by following the instructions in the [GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
-2. Download `CASCConsole` from [https://github.com/WoW-Tools/CASCExplorer/releases](https://github.com/WoW-Tools/CASCExplorer/releases). 
-3. Extract it to the `CASCConsole` folder under `d4-texture-extractor` folder. `CASCConsole.exe` and the other files from the zip file should be in the same folder with `extract_cascconsole.exe_and_other_files_here`
+2. Download the latest `CASCConsole.zip` from [https://github.com/WoW-Tools/CASCExplorer/releases](https://github.com/WoW-Tools/CASCExplorer/releases). 
+3. Extract the contents of the `CASCConsole.zip` into the `CASCConsole` folder under `d4-texture-extractor` folder. `CASCConsole.exe` and the other files from the zip file should be in the same folder with `extract_cascconsole.exe_and_other_files_here`
 4. Run `npm install` in `d4-texture-extractor` folder. You should have at least latest LTS version of [NodeJS](https://nodejs.org/en) installed.
 
 
