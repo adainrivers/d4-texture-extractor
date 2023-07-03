@@ -14,11 +14,7 @@ It converts .tex files to png, webp or jpg. Also slices the files into separate 
 2. Clone `d4data` from https://github.com/blizzhackers/d4data
 3. Download and extract `RawtexCmd.exe` from https://forum.xentax.com/viewtopic.php?t=16461
 4. Download `texconv.exe` from https://github.com/microsoft/DirectXTex/releases
-5. Extract texture assets from the game using `CASCExplorer`, you can download it from https://github.com/WoW-Tools/CASCExplorer/releases. After downloading and extracting, you need to add the following line to `CASCExplorer.exe.config` file:
-
-```
-    <add key="fenris" value="Diablo IV" />
-```
+5. Extract texture assets from the game using `CASCExplorer`, you can download it from https://github.com/WoW-Tools/CASCExplorer/releases. Use `CASCExplorer-v1.0.206` or newer.
 
 You can find the texture files are in `base/payload/Texture` folder.
 
