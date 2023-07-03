@@ -3,4 +3,5 @@
 *.webp
 *.png
 *.log
+temp/
 node_modules

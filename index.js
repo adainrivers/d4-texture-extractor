@@ -37,8 +37,6 @@ async function main() {
 
 program
   .option('-c, --concurrency <number>', 'number of concurrent tasks')
-  .option('-rt, --rawtex <path>', 'path to RawTexCmd.exe')
-  .option('-tc, --texconv <path>', 'path to texconv.exe')
   .option('-t, --textures <path>', 'path to folder containing textures extracted with CASCExplorer or CASCConsole')
   .option('-d, --texturedata <path>', 'path to \'d4data\\json\\base\\meta\\Texture\' folder')
   .option('-o, --outputformat <format>', 'png, jpg or webp')

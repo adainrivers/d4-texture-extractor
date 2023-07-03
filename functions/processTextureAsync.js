@@ -8,45 +8,32 @@ const calculateSliceCoords = require('./calculateSliceCoords');
 const sliceImageAsync = require('./sliceImageAsync');
 const cropImageAsync = require('./cropImageAsync');
 const runCommand = require('./runCommand');
+const convertRawTextureAsync = require('./convertRawTextureAsync');
 
 async function processTextureAsync(dataFile) {
     const key = path.basename(dataFile).slice(0, -9);
     const data = await readJsonFileAsync(path.join(options.textureDataFolder, dataFile));
-    // if(data.eTexFormat !== 43) return;
-    // const formats = ['BC1', 'BC2', 'BC3', 'BC4', 'BC5U', 'BC5S', 'BC6', 'BC7', 'DXT1', 'DXT3', 'DXT5'];
-    //const formats = ['BC1', 'BC3'];
     try {
-        const parameters = config.textureFormats[data.eTexFormat];
-        if(!parameters || !parameters.format) {
-            logger.error('unknown format', key, data.eTexFormat);
-            return;
-        }
-        await processTextureInternal(key, data, parameters.format, parameters.alignment);
-        
+        await processTextureInternal(key, data);
     } catch (error) {
         logger.error('error processing texture', key, error);
     }
 }
 
-async function processTextureInternal(key, data, format, base) {
+async function processTextureInternal(key, data) {
     logger.log('processing texture:', key);
     const textureFilePath = path.join(options.textureFolder, `${key}.tex`);
-    const ddsSourceFilePath = path.join(options.textureFolder, `${key}.dds`);
     const tempFolder = path.resolve('./temp');
+    const ddsSourceFilePath = path.join(tempFolder, `${key}.dds`);
     const outputFolder = options.outputpath ? path.resolve(options.outputpath) : path.resolve(`./${options.outputFormat}`);
+    const texconvCommandLine = path.resolve('./texconv/texconv.exe')
 
     await fs.mkdir(tempFolder, { recursive: true });
     await fs.mkdir(outputFolder, { recursive: true });
 
-    const rawTexCommand = buildCommandLine(options.rawTexCommandLine, [`"${textureFilePath}"`, format, '0', roundUp(data.dwWidth, base), roundUp(data.dwHeight, base)]);
-    try {
-        logger.debug('converting tex:', textureFilePath)
-        runCommand(rawTexCommand);
-    } catch (error) {
-        await delay(100);
-        runCommand(rawTexCommand);
-    }
-    const texconvCommand = buildCommandLine(options.texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${tempFolder}"`]);
+    await convertRawTextureAsync(textureFilePath, ddsSourceFilePath,  data);
+
+    const texconvCommand = buildCommandLine(texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${tempFolder}"`]);
     try {
         logger.debug('converting dds:', ddsSourceFilePath)
         runCommand(texconvCommand);

@@ -4,8 +4,6 @@ const options = {};
 
 function setOptions(opts) {
     options.concurrencyLimit = opts.concurrency || config.concurrencyLimit;
-    options.rawTexCommandLine = opts.rawtex || config.rawTexCommandLine;
-    options.texconvCommandLine = opts.texconv || config.texconvCommandLine;
     options.textureFolder = opts.textures || config.textureFolder;
     options.textureDataFolder = opts.texturedata || config.textureDataFolder;
     options.outputFormat = opts.outputformat || config.outputFormat;
