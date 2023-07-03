@@ -1,6 +1,4 @@
 const fs = require('fs');
-const { promisify } = require('util');
-const writeFile = promisify(fs.writeFile);
 const logger = require('./logger');
 
 const textureFormats = {
@@ -164,7 +162,7 @@ function align(number, alignment) {
     return aligned;
 }
 
-async function convertRawTextureAsync(textureFilePath, ddsFilePath, textureData) {
+function convertRawTexture(textureFilePath, ddsFilePath, textureData) {
     const textureFormat = textureFormats[textureData.eTexFormat];
     if (!textureFormat) {
         logger.error(`Unknown texture format ${textureData.eTexFormat}`);
@@ -228,8 +226,8 @@ async function convertRawTextureAsync(textureFilePath, ddsFilePath, textureData)
 
     const outputFileBuffer = Buffer.concat([header, input]);
 
-    await writeFile(ddsFilePath, outputFileBuffer);
+    fs.writeFileSync(ddsFilePath, outputFileBuffer);
 }
 
 
-module.exports = convertRawTextureAsync;
+module.exports = convertRawTexture;

@@ -8,7 +8,7 @@ const calculateSliceCoords = require('./calculateSliceCoords');
 const sliceImageAsync = require('./sliceImageAsync');
 const cropImageAsync = require('./cropImageAsync');
 const runCommand = require('./runCommand');
-const convertRawTextureAsync = require('./convertRawTextureAsync');
+const convertRawTexture = require('./convertRawTexture');
 
 async function processTextureAsync(dataFile) {
     const key = path.basename(dataFile).slice(0, -9);
@@ -31,7 +31,7 @@ async function processTextureInternal(key, data) {
     await fs.mkdir(tempFolder, { recursive: true });
     await fs.mkdir(outputFolder, { recursive: true });
 
-    await convertRawTextureAsync(textureFilePath, ddsSourceFilePath,  data);
+    convertRawTexture(textureFilePath, ddsSourceFilePath, data);
 
     const texconvCommand = buildCommandLine(texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${tempFolder}"`]);
     try {
