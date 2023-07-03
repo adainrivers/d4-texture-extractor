@@ -17,11 +17,11 @@ async function processTextureAsync(dataFile) {
     //const formats = ['BC1', 'BC3'];
     try {
         const parameters = config.textureFormats[data.eTexFormat];
-        if(!parameters || !parameters.rawtexFormat) {
+        if(!parameters || !parameters.format) {
             logger.error('unknown format', key, data.eTexFormat);
             return;
         }
-        await processTextureInternal(key, data, parameters.rawtexFormat, parameters.alignment);
+        await processTextureInternal(key, data, parameters.format, parameters.alignment);
         
     } catch (error) {
         logger.error('error processing texture', key, error);
