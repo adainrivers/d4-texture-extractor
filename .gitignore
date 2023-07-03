@@ -2,4 +2,5 @@
 *.dds
 *.webp
 *.png
+*.log
 node_modules
