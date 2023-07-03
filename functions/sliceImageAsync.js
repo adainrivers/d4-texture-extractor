@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 async function sliceImageAsync(sourceImage, coordinates, outputFormat = 'png') {
+    if(coordinates.filter(c=>c.hImageHandle !== 0).length === 0) return;
     const sliceFolderName = path.basename(sourceImage, path.extname(sourceImage));
     const outputFolder = path.join(path.dirname(sourceImage), 'slices', sliceFolderName);
     fs.mkdirSync(outputFolder, { recursive: true });
