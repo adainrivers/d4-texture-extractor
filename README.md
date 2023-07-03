@@ -29,11 +29,6 @@ Using your local copy of Diablo 4:
 CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -s "C:\Program Files (x86)\Diablo IV"
 ```
 
-Using the CDN version:
-```
-CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -o
-```
-
 6. **Set the correct paths by editing `config.js` file.**
 7. Run `npm install` in the app folder.
 
