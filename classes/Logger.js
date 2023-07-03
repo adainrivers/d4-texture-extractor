@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const config = require('../config');
 
 function padZero(number, length) {
     let str = number.toString();
@@ -23,6 +24,15 @@ class Logger {
         const logMessage = args.map(arg => String(arg)).join(' ');
         fs.appendFileSync(this.logFileName, `${timestamp} - ${logMessage}\r\n`);
         console.log(logMessage);
+    }
+
+    debug(...args) {
+        if (config.debug) {
+            const timestamp = new Date().toISOString();
+            const logMessage = args.map(arg => String(arg)).join(' ');
+            fs.appendFileSync(this.logFileName, `${timestamp} - ${logMessage}\r\n`);
+            console.log(logMessage);
+        }
     }
 
     error(...args) {

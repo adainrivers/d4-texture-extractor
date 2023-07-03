@@ -8,7 +8,7 @@ function setOptions(opts) {
     options.texconvCommandLine = config.texconvCommandLine;
     options.textureFolder = config.textureFolder;
     options.textureDataFolder = config.textureDataFolder;
-    options.outputFormat = opts.outputFormat || config.outputFormat;
+    options.outputFormat = opts.outputformat || config.outputFormat;
     options.filter = opts.filter || config.filter;
     options.nocrop = opts.nocrop || config.nocrop;
     options.noslicefolders = opts.noslicefolders || config.noslicefolders;

@@ -38,7 +38,7 @@ async function processTextureInternal(key, data, format, base) {
 
     const rawTexCommand = buildCommandLine(options.rawTexCommandLine, [`"${textureFilePath}"`, format, '0', roundUp(data.dwWidth, base), roundUp(data.dwHeight, base)]);
     try {
-        if(config.debug) logger.log('converting tex:', textureFilePath)
+        logger.debug('converting tex:', textureFilePath)
         runCommand(rawTexCommand);
     } catch (error) {
         await delay(100);
@@ -46,7 +46,7 @@ async function processTextureInternal(key, data, format, base) {
     }
     const texconvCommand = buildCommandLine(options.texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${outputFolder}"`]);
     try {
-        if(config.debug) logger.log('converting dds:', ddsSourceFilePath)
+        logger.debug('converting dds:', ddsSourceFilePath)
         runCommand(texconvCommand);
     } catch (error) {
         await delay(100);

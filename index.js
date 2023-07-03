@@ -35,6 +35,7 @@ program
 
 program.parse(process.argv);
 const opts = program.opts();
+logger.debug(opts);
 setOptions(opts);
 
 main();

@@ -6,12 +6,13 @@ const path = require('path');
 const fs = require('fs');
 
 async function sliceImageAsync(sourceImage, coordinates, outputFormat = 'png') {
+    logger.debug('sliceImageAsync', sourceImage, outputFormat);
     const sliceFolderName = path.basename(sourceImage, path.extname(sourceImage));
     const outputFolder = path.join(path.dirname(sourceImage), 'slices', sliceFolderName);
     if(!options.noslicefolders){
         fs.mkdirSync(outputFolder, { recursive: true });
     }
-    if(config.debug)  logger.log('slicing:', sourceImage);
+    logger.debug('slicing:', sourceImage);
     try {
         for (let i = 0; i < coordinates.length; i++) {
             const { hImageHandle, x0, y0, x1, y1 } = coordinates[i];
