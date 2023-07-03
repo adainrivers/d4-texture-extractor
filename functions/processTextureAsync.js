@@ -33,7 +33,7 @@ async function processTextureInternal(key, data, format, base) {
     const textureFilePath = path.join(options.textureFolder, `${key}.tex`);
     const ddsSourceFilePath = path.join(options.textureFolder, `${key}.dds`);
     const tempFolder = path.resolve('./temp');
-    const outputFolder = path.resolve(`./${options.outputFormat}`);
+    const outputFolder = options.outputpath ? path.resolve(options.outputpath) : path.resolve(`./${options.outputFormat}`);
 
     await fs.mkdir(tempFolder, { recursive: true });
     await fs.mkdir(outputFolder, { recursive: true });
@@ -60,12 +60,14 @@ async function processTextureInternal(key, data, format, base) {
     if(options.noslice){
         const croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
         const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
-        await fs.rename(croppedFilePath, finalFilePath);
+        await fs.copyFile(croppedFilePath, finalFilePath);
+        await fs.rm(croppedFilePath);
     } else {
         if(!options.noslicefolders){
             const croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
             const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
-            await fs.rename(croppedFilePath, finalFilePath);
+            await fs.copyFile(croppedFilePath, finalFilePath);
+            await fs.rm(croppedFilePath);
         }
         const sliceCoords = calculateSliceCoords(data.ptFrame, data.dwWidth, data.dwHeight);
         await sliceImageAsync(pngFilePath, outputFolder, sliceCoords, options.outputFormat);

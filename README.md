@@ -34,7 +34,7 @@ Using the CDN version:
 CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -o
 ```
 
-6. **Set the correct paths by editing `config.js` file.**
+6. **Set the correct paths by editing `config.js` file ** if you are not planning to provide them through the command line options. Prefered way is to use the command line options.
 7. Run `npm install` in the app folder.
 
 
@@ -42,16 +42,22 @@ CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenr
 
 ```
 Usage: node ./index.js [options]
+All options are optional
 
 Options:
   -c, --concurrency <number>   number of concurrent tasks
+  -rt, --rawtex <path>         path to RawTexCmd.exe
+  -tc, --texconv <path>        path to texconv.exe
+  -t, --textures <path>        path to folder containing textures extracted with CASCExplorer or CASCConsole
+  -d, --texturedata <path>     path to 'd4data\json\base\meta\Texture' folder
   -o, --outputformat <format>  png, jpg or webp
+  -p, --outputpath <path>      Full or relative path to output folder, default is './{outputformat}'
   -f, --filter <wildcard>      Wildcard to filter files to process, for example '2DUI*', no need to include .json extension, default is '*'
   -nc, --nocrop                Do not crop images to the size of the texture, useful for map textures
   -ns, --noslice               Do not slice the images, useful for map textures
-  -nsf, --noslicefolders       Do not use slice folders, instead save slices to the output folder, prefixed with the texture name
-  -h, --help                   display help for command
+  -nsf, --noslicefolders       Do not use slice folders, instead save slicers to the output folder, prefixed with the file name
+  -h, --help                   display help for command               display help for command
 
 Example:
-  node .\index.js -f 2DUI* -c 10 -o webp
+  node .\index.js -f 2D* -c 10 -o webp -rt "F:\D4\Extraction\Rawtex\RawtexCmd.exe" -tc "texconv.exe" -d "F:\D4\Extraction\d4data\json\base\meta\Texture" -t "F:\D4\Extraction\CASCConsole\Texture\Base\payload\Texture" 
 ```
