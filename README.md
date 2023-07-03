@@ -13,7 +13,7 @@ The Diablo 4 Texture Extractor is a tool that extracts and converts .tex files t
 1. Clone this repository by following the instructions in the [GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 2. Download `CASCConsole` from [https://github.com/WoW-Tools/CASCExplorer/releases](https://github.com/WoW-Tools/CASCExplorer/releases). 
 3. Extract it to the `CASCConsole` folder under `d4-texture-extractor` folder. `CASCConsole.exe` and the other files from the zip file should be in the same folder with `extract_cascconsole.exe_and_other_files_here`
-4. Run `npm install` in `d4-texture-extractor` folder. You should have at least latest LTS version of NodeJS installed.
+4. Run `npm install` in `d4-texture-extractor` folder. You should have at least latest LTS version of [NodeJS](https://nodejs.org/en) installed.
 
 
 ## Usage
@@ -33,15 +33,18 @@ Options:
   -ns, --noslice               Do not slice the images, useful for map textures
   -nsf, --noslicefolders       Do not use slice folders, instead save slicers to the output folder, prefixed with the file name
   -h, --help                   display help for command
+```
 
-Example 1: Extract and convert all texture files starting with 2D into webp folder in webp format.
+**Example 1:** Extract and convert all texture files starting with 2D into webp folder in webp format.
 
+```
   node .\index.js -f 2D* -c 10 -o webp -g "C:\Program Files (x86)\Diablo IV" -e
+```
 
-Example 2: Convert previously extracted files starting with zmap in webp format without cropping and slicing.
+**Example 2:** Convert previously extracted files starting with zmap in webp format without cropping and slicing.
 
+```
   node .\index.js -f zmap* -c 10 -o webp -nc -ns
-
 ```
 
 ## Credits and thanks
