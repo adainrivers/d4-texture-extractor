@@ -48,7 +48,8 @@ Options:
   -o, --outputformat <format>  png, jpg or webp
   -f, --filter <wildcard>      Wildcard to filter files to process, for example '2DUI*', no need to include .json extension, default is '*'
   -nc, --nocrop                Do not crop images to the size of the texture, useful for map textures
-  -nsf, --noslicefolders       Do not use slice folders, instead save slicers to the output folder, prefixed with the file name
+  -ns, --noslice               Do not slice the images, useful for map textures
+  -nsf, --noslicefolders       Do not use slice folders, instead save slices to the output folder, prefixed with the texture name
   -h, --help                   display help for command
 
 Example:

@@ -32,8 +32,10 @@ async function processTextureInternal(key, data, format, base) {
     logger.log('processing texture:', key);
     const textureFilePath = path.join(options.textureFolder, `${key}.tex`);
     const ddsSourceFilePath = path.join(options.textureFolder, `${key}.dds`);
+    const tempFolder = path.resolve('./temp');
     const outputFolder = path.resolve(`./${options.outputFormat}`);
 
+    await fs.mkdir(tempFolder, { recursive: true });
     await fs.mkdir(outputFolder, { recursive: true });
 
     const rawTexCommand = buildCommandLine(options.rawTexCommandLine, [`"${textureFilePath}"`, format, '0', roundUp(data.dwWidth, base), roundUp(data.dwHeight, base)]);
@@ -44,7 +46,7 @@ async function processTextureInternal(key, data, format, base) {
         await delay(100);
         runCommand(rawTexCommand);
     }
-    const texconvCommand = buildCommandLine(options.texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${outputFolder}"`]);
+    const texconvCommand = buildCommandLine(options.texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${tempFolder}"`]);
     try {
         logger.debug('converting dds:', ddsSourceFilePath)
         runCommand(texconvCommand);
@@ -53,19 +55,23 @@ async function processTextureInternal(key, data, format, base) {
         runCommand(texconvCommand);
     }
 
-    let croppedFilePath;
-    const sliceCoords = calculateSliceCoords(data.ptFrame, data.dwWidth, data.dwHeight);
-    const pngFilePath = path.join(outputFolder, `${key}.png`);
-    const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
-    if (sliceCoords.length > 0) {
-        croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
-        await sliceImageAsync(pngFilePath, sliceCoords, options.outputFormat);
+    const pngFilePath = path.join(tempFolder, `${key}.png`);
+
+    if(options.noslice){
+        const croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
+        const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
+        await fs.rename(croppedFilePath, finalFilePath);
     } else {
-        croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
+        const sliceCoords = calculateSliceCoords(data.ptFrame, data.dwWidth, data.dwHeight);
+        await sliceImageAsync(pngFilePath, outputFolder, sliceCoords, options.outputFormat);
     }
+    // let croppedFilePath;
+    // if (sliceCoords.length > 0) {
+    // } else {
+    //     croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
+    // }
     await fs.rm(pngFilePath);
     await fs.rm(ddsSourceFilePath);
-    await fs.rename(croppedFilePath, finalFilePath);
 }
 
 function delay(ms) {

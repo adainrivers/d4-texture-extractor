@@ -11,6 +11,7 @@ function setOptions(opts) {
     options.outputFormat = opts.outputformat || config.outputFormat;
     options.filter = opts.filter || config.filter;
     options.nocrop = opts.nocrop || config.nocrop;
+    options.noslice = opts.noslice || config.noslice;
     options.noslicefolders = opts.noslicefolders || config.noslicefolders;
 }
 
