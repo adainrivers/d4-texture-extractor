@@ -2,34 +2,34 @@
 
 ## What it does
 
-It converts .tex files to png, webp or jpg. Also slices the files into separate image files when applicable.
+The Diablo 4 Texture Extractor is a tool that converts .tex files to PNG, WebP, or JPG formats. It can also slice the files into separate image files when applicable.
 
 ## Known Issues
 
-- Some of the intermediate dds files might not be valid, causing texconv to fail.
+- Some of the intermediate DDS files might not be valid, which can cause texconv to fail.
 
 ## Installation
 
-1. Clone this repo (https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-2. Clone `d4data` from https://github.com/blizzhackers/d4data
-3. Extract texture assets from the game using `CASCExplorer`, you can download it from https://github.com/WoW-Tools/CASCExplorer/releases. Use `CASCExplorer-v1.0.206` or newer.
+1. Clone this repository by following the instructions in the [GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+2. Clone the `d4data` repository from [https://github.com/blizzhackers/d4data](https://github.com/blizzhackers/d4data).
+3. Extract texture assets from the game using `CASCExplorer`. You can download it from [https://github.com/WoW-Tools/CASCExplorer/releases](https://github.com/WoW-Tools/CASCExplorer/releases). Use `CASCExplorer-v1.0.206` or newer.
 
-You can find the texture files are in `base/payload/Texture` folder.
+    The texture files are located in the `base/payload/Texture` folder.
 
-Alternatively you can download `CASCConsole` from the same URL and use the following command line to extract the textures:
+    Alternatively, you can download `CASCConsole` from the same URL and use the following command line to extract the textures:
 
-Using your local copy of Diablo 4:
-```
-CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -s "C:\Program Files (x86)\Diablo IV"
-```
+    Using your local copy of Diablo 4:
+    ```
+    CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -s "C:\Program Files (x86)\Diablo IV"
+    ```
 
-Using the CDN version:
-```
-CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -o
-```
+    Using the CDN version:
+    ```
+    CASCConsole -m Pattern -e "Base\payload\Texture\*.tex" -d Texture -l All -p fenris -o
+    ```
 
-4. **Set the correct paths by editing `config.js` file ** if you are not planning to provide them through the command line options. Prefered way is to use the command line options.
-5. Run `npm install` in the app folder.
+4. **Set the correct paths by editing the `config.js` file** if you are not planning to provide them through the command line options. The *preferred way* is to use the command line options.
+5. Run `npm install` in the app folder. You should have at least latest LTS version of NodeJS installed.
 
 
 ## Usage
