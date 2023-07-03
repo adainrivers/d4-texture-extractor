@@ -38,13 +38,13 @@ Options:
 **Example 1:** Extract and convert all texture files starting with 2D into webp folder in webp format.
 
 ```
-  node .\index.js -f 2D* -c 10 -o webp -g "C:\Program Files (x86)\Diablo IV" -e
+node .\index.js -f 2D* -c 10 -o webp -g "C:\Program Files (x86)\Diablo IV" -e
 ```
 
 **Example 2:** Convert previously extracted files starting with zmap in webp format without cropping and slicing.
 
 ```
-  node .\index.js -f zmap* -c 10 -o webp -nc -ns
+node .\index.js -f zmap* -c 10 -o webp -nc -ns
 ```
 
 ## Credits and thanks
