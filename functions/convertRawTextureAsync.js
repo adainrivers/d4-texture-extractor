@@ -1,6 +1,7 @@
 const fs = require('fs');
+const { promisify } = require('util');
+const writeFile = promisify(fs.writeFile);
 const logger = require('./logger');
-// const { Buffer } = require('node:buffer');
 
 const textureFormats = {
     0: { DXGI: 'DXGI_FORMAT_B8G8R8A8_UNORM', OpenGL: 'GL_RGBA8', Alignment: 64 },
@@ -153,6 +154,35 @@ const bpp = [
     32, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16
 ];
 
+function ddsHeader(){
+    return {
+        dwMagic: 0x20534444,
+        dwSize: 124,
+        dwFlags: 0x1 | 0x2 | 0x4 | 0x1000,
+        dwHeight: 0,
+        dwWidth: 0,
+        dwPitchOrLinearSize: 0,
+        dwDepth: 0,
+        dwMipMapCount: 0,
+        dwReserved1: new Array(11).fill(0),
+        ddspf: {
+            dwSize: 32,
+            dwFlags: 0x4,
+            dwFourCC: 0,
+            dwRGBBitCount: 0,
+            dwRBitMask: 0,
+            dwGBitMask: 0,
+            dwBBitMask: 0,
+            dwABitMask: 0
+        },
+        dwCaps: 0x1000,
+        dwCaps2: 0,
+        dwCaps3: 0,
+        dwCaps4: 0,
+        dwReserved2: 0
+    };
+}
+
 function align(number, alignment) {
     const remainder = number % alignment;
     if (remainder === 0) {
@@ -181,88 +211,53 @@ async function convertRawTextureAsync(textureFilePath, ddsFilePath, textureData)
 
     const input = fs.readFileSync(textureFilePath);
 
-    let num9 = 808540228;
+    let fourCC = 808540228; // DX10
 
-    if (index === 71)
-        num9 = 827611204;
-    if (index === 74)
-        num9 = 861165636;
-    if (index === 77)
-        num9 = 894720068;
-    if (index === 80)
-        num9 = 826889281;
-    if (index === 83)
-        num9 = 843666497;
-
+    if (index === 71) {
+        fourCC = 827611204; // DXT1
+    }
+    if (index === 74) {
+        fourCC = 861165636; // DXT3
+    }
+    if (index === 77) {
+        fourCC = 894720068; // DXT5
+    }
+    if (index === 80) {
+        fourCC = 826889281; // ATI1
+    }
+    if (index === 83) {
+        fourCC = 843666497; // ATI2
+    }
 
     const count = (width * height * bpp[index]) / 8;
 
-    const arrays = [];
+    const header = Buffer.alloc(fourCC === 808540228 ? 148 : 128); // DX10 uses an extended header
 
-    function int64(int64) {
-        const buffer = new ArrayBuffer(8);
-        const dataView = new DataView(buffer);
-        dataView.setBigInt64(0, int64, true);
-        return new Uint8Array(buffer);
+    header.write('DDS ', 0, 4, 'ascii'); // magic
+
+    header.writeUInt32LE(124, 4); // size
+    header.writeUInt32LE(0x1 | 0x2 | 0x4 | 0x1000, 8); // flags
+    header.writeUInt32LE(height, 12); // height
+    header.writeUInt32LE(width, 16); // width
+    header.writeUInt32LE(count, 20); // pitch or linear size
+
+    // rest of header structure...
+
+    header.writeUInt32LE(32, 76); // ddspf size
+    header.writeUInt32LE(4, 80); // ddspf flags
+    header.writeUInt32LE(fourCC, 84); // ddspf fourCC
+
+    if (fourCC === 808540228) { // DX10 header
+        header.writeUInt32LE(index, 128); // DXGI
+        header.writeUInt32LE(3, 132); // resource dimension
+        header.writeUInt32LE(0, 136); // misc flag
+        header.writeUInt32LE(1, 140); // array size
+        header.writeUInt32LE(0, 144); // misc flag 2
     }
 
-    function int32(int32) {
-        const buffer = new ArrayBuffer(4);
-        const dataView = new DataView(buffer);
-        dataView.setInt32(0, int32, true);
-        return new Uint8Array(buffer);
-    }
+    const outputFileBuffer = Buffer.concat([header, input]);
 
-    function int8(int8) {
-        const buffer = new ArrayBuffer(4);
-        const dataView = new DataView(buffer);
-        dataView.setUint8(0, int8, true);
-        return new Uint8Array(buffer);
-    }
-
-    // this is not the best way to do this, but it works
-    arrays.push(int64(BigInt(533118272580)));
-    arrays.push(int32(4103));
-    arrays.push(int32(height));
-    arrays.push(int32(width));
-    arrays.push(int32(count));
-    arrays.push(int32(0));
-    arrays.push(int32(1));
-    for (let i = 0; i < 11; i++) arrays.push(int8(0));
-
-    arrays.push(int32(32));
-    arrays.push(int32(4));
-    arrays.push(int32(num9));
-
-    for (let i = 0; i < 10; i++) arrays.push(int8(0));
-
-    if (num9 === 808540228) {
-        arrays.push(int32(index));
-        arrays.push(int32(3));
-        arrays.push(int32(0));
-        arrays.push(int32(1));
-        arrays.push(int32(0));
-    }
-
-    arrays.push(new Uint8Array(input));
-
-    // Get the total length of all arrays.
-    let length = 0;
-    arrays.forEach(item => {
-        length += item.length;
-    });
-
-    // Create a new array with total length and merge all source arrays.
-    let mergedArray = new Uint8Array(length);
-    let offset = 0;
-    arrays.forEach(item => {
-        mergedArray.set(item, offset);
-        offset += item.length;
-    });
-
-    fs.writeFileSync(ddsFilePath, mergedArray);
-
-    
+    await writeFile(ddsFilePath, outputFileBuffer);
 }
 
 
