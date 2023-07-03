@@ -1,4 +1,4 @@
-*# Diablo 4 Texture Extractor
+# Diablo 4 Texture Extractor
 
 ## What it does
 
