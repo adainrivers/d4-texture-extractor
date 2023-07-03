@@ -29,7 +29,8 @@ program
   // .option('-t, --textures <path>', 'path to folder containing textures extracted with CASCExplorer')
   // .option('-d, --texturedata <path>', 'path to \'d4data\\json\\base\\meta\\Texture\' folder')
   .option('-o, --outputformat <format>', 'png, jpg or webp')
-  .option('-f, --filter <wildcard>', 'Wildcard to filter files to process, for example \'2DUI*\', no need to include .json extension, default is \'*\'');
+  .option('-f, --filter <wildcard>', 'Wildcard to filter files to process, for example \'2DUI*\', no need to include .json extension, default is \'*\'')
+  .option('-nc', '--nocrop', 'Do not crop images to the size of the texture, useful for map textures');
 
 program.parse(process.argv);
 const opts = program.opts();

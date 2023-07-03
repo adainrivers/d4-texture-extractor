@@ -32,10 +32,11 @@ It converts .tex files to png, webp or jpg. Also slices the files into separate 
 Usage: node ./index.js [options]
 
 Options:
-  -c, --concurrency <number>   number of concurrent tasks
-  -o, --outputformat <format>  png, jpg or webp
-  -f, --filter <wildcard>      Wildcard to filter files to process, for example 2DUI*, no need to include .json extension, default is *
-  -h, --help                   display help for command
+  -c,  --concurrency <number>   number of concurrent tasks
+  -o,  --outputformat <format>  png, jpg or webp
+  -f,  --filter <wildcard>      Wildcard to filter files to process, for example 2DUI*, no need to include .json extension, default is *
+  -nc, --nocrop                 Do not crop images to the size of the texture, might be useful for some textures
+  -h,  --help                   display help for command
 
 Example:
   node .\index.js -f 2DUI* -c 10 -o webp

@@ -7,6 +7,7 @@ const config = {
     textureDataFolder: String.raw`F:\D4\Extraction\d4data\json\base\meta\Texture`,
     outputFormat: 'png', // png, jpg, webp
     filter: '*',
+    nocrop: false,
     textureFormats: {
         0: {
             format: 'B8G8R8A8_UNORM',

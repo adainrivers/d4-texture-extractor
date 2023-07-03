@@ -10,6 +10,7 @@ function setOptions(opts) {
     options.textureDataFolder = config.textureDataFolder;
     options.outputFormat = opts.outputFormat || config.outputFormat;
     options.filter = opts.filter || config.filter;
+    options.nocrop = opts.nocrop || config.nocrop;
 }
 
 module.exports = { options, setOptions };
