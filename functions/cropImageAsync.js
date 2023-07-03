@@ -1,5 +1,5 @@
 const config = require('../config');
-const options = require('../options');
+const { options } = require('../options');
 const logger = require('./logger');
 const sharp = require('sharp');
 const path = require('path');

@@ -8,6 +8,7 @@ const config = {
     outputFormat: 'png', // png, jpg, webp
     filter: '*',
     nocrop: false,
+    noslicefolders: false,
     textureFormats: {
         0: {
             format: 'B8G8R8A8_UNORM',
