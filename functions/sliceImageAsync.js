@@ -16,7 +16,6 @@ async function sliceImageAsync(sourceImage, coordinates, outputFormat = 'png') {
     try {
         for (let i = 0; i < coordinates.length; i++) {
             const { hImageHandle, x0, y0, x1, y1 } = coordinates[i];
-            if (hImageHandle === 0) continue;
             let outputFilePath;
             if(options.noslicefolders){
                 outputFilePath = path.join(path.dirname(sourceImage), `${sliceFolderName}_${hImageHandle}.${outputFormat}`);
