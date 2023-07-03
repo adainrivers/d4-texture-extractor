@@ -62,6 +62,11 @@ async function processTextureInternal(key, data, format, base) {
         const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
         await fs.rename(croppedFilePath, finalFilePath);
     } else {
+        if(!options.noslicefolders){
+            const croppedFilePath = await cropImageAsync(pngFilePath, data.dwWidth, data.dwHeight, options.outputFormat);
+            const finalFilePath = path.join(outputFolder, `${key}.${options.outputFormat}`);
+            await fs.rename(croppedFilePath, finalFilePath);
+        }
         const sliceCoords = calculateSliceCoords(data.ptFrame, data.dwWidth, data.dwHeight);
         await sliceImageAsync(pngFilePath, outputFolder, sliceCoords, options.outputFormat);
     }
