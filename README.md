@@ -10,7 +10,7 @@ It converts .tex files to png, webp or jpg. Also slices the files into separate 
 
 ## Installation
 
-1. Clone this repo
+1. Clone this repo (https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 2. Clone `d4data` from https://github.com/blizzhackers/d4data
 3. Download and extract `RawtexCmd.exe` from https://forum.xentax.com/viewtopic.php?t=16461
 4. Download `texconv.exe` from https://github.com/microsoft/DirectXTex/releases
