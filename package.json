@@ -1,5 +1,5 @@
 {
-  "name": "texture-extractor",
+  "name": "d4-texture-extractor",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "^11.0.0",
     "minimatch": "^9.0.2",
