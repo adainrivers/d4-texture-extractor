@@ -20,7 +20,13 @@ It converts .tex files to png, webp or jpg. Also slices the files into separate 
     <add key="fenris" value="Diablo IV" />
 ```
 
-> You can find the texture files are in `base/payload/Texture` folder.
+You can find the texture files are in `base/payload/Texture` folder.
+
+Alternatively you can download `CASCConsole` from the same URL and use the following command line to extract the textures:
+
+```
+CASCConsole -m Pattern -e "Base\payload\Texture\*" -d Texture -l All -p fenris -s "C:\Program Files (x86)\Diablo IV"
+```
 
 6. **Set the correct paths by editing `config.js` file.**
 7. Run `npm install` in the app folder.
