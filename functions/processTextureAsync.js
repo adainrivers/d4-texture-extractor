@@ -9,10 +9,11 @@ const sliceImageAsync = require('./sliceImageAsync');
 const cropImageAsync = require('./cropImageAsync');
 const runCommand = require('./runCommand');
 const convertRawTexture = require('./convertRawTexture');
+const readTextureDefinition = require('./readTextureDefinition');
 
-async function processTextureAsync(dataFile) {
-    const key = path.basename(dataFile).slice(0, -9);
-    const data = await readJsonFileAsync(path.join(options.textureDataFolder, dataFile));
+async function processTextureAsync(key) {
+    const textureDefinitionFile = path.join(options.textureDataFolder, `${key}.tex`);
+    const data = readTextureDefinition(textureDefinitionFile);
     try {
         await processTextureInternal(key, data);
     } catch (error) {

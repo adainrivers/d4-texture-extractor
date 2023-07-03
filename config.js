@@ -1,8 +1,7 @@
 const config = {
     debug: false,
     concurrencyLimit: 4,
-    textureFolder: String.raw`F:\D4\Extraction\Textures\Base\payload\Texture`,
-    textureDataFolder: String.raw`F:\D4\Extraction\d4data\json\base\meta\Texture`,
+    gameFolder: String.raw`F:\Diablo IV`,
     outputFormat: 'png', // png, jpg, webp
     filter: '*',
     nocrop: false,

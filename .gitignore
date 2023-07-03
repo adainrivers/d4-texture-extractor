@@ -4,4 +4,6 @@
 *.png
 *.log
 temp/
+CASCConsole/
+gamedata/
 node_modules

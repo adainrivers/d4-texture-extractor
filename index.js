@@ -4,13 +4,12 @@ const { minimatch } = require('minimatch')
 const logger = require('./functions/logger');
 const fs = require('fs/promises');
 const path = require('path');
-
+const extractGameFilesAsync = require('./functions/extractGameFilesAsync');
+const getTextureDataFilesAsync = require('./functions/getTextureDataFilesAsync');
 const processTextureAsync = require('./functions/processTextureAsync');
-const getTextureDataFiles = require('./functions/getTextureDataFilesAsync');
 const TaskQueue = require('./functions/taskQueue');
 
 async function main() {
-
   if (options.outputpath) {
     try {
       const outputFolder = path.resolve(options.outputpath);
@@ -21,24 +20,28 @@ async function main() {
       return;
     }
   }
-
+  if (options.extract) {
+    await extractGameFilesAsync();
+  }
   const taskQueue = TaskQueue(options.concurrencyLimit);
-  const dataFiles = await getTextureDataFiles();
+  const dataFiles = await getTextureDataFilesAsync();
   for (let i = 0; i < dataFiles.length; i++) {
+
     const dataFile = dataFiles[i];
-    const key = dataFile.slice(0, -9);
+    const key = dataFile.slice(0, -4);
+
     if (!minimatch(key, options.filter)) {
       continue;
     }
 
-    taskQueue(async () => processTextureAsync(dataFile));
+    taskQueue(async () => processTextureAsync(key));
   }
 }
 
 program
+  .option('-e, --extract', 'Automatically extract game files before processing')
+  .option('-g, --gameFolder <path>', 'Path to Diablo IV folder, for example \"C:\\Program Files (x86)\\Diablo IV\\\"')
   .option('-c, --concurrency <number>', 'number of concurrent tasks')
-  .option('-t, --textures <path>', 'path to folder containing textures extracted with CASCExplorer or CASCConsole')
-  .option('-d, --texturedata <path>', 'path to \'d4data\\json\\base\\meta\\Texture\' folder')
   .option('-o, --outputformat <format>', 'png, jpg or webp')
   .option('-p, --outputpath <path>', 'Full or relative path to output folder, default is \'./{outputformat}\'')
   .option('-f, --filter <wildcard>', 'Wildcard to filter files to process, for example \'2DUI*\', no need to include .json extension, default is \'*\'')

@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\index.js",
-            // "args": ["-f", "2DUI_cursor_large", "-c", "10" ,"-o", "webp", "-nsf"]
+            "args": ["-f", "2DUI_cursor_large", "-c", "10" ,"-o", "webp", "-nsf", "-e"]
         }
     ]
 }
