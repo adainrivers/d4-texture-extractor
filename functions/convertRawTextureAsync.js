@@ -154,35 +154,6 @@ const bpp = [
     32, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16
 ];
 
-function ddsHeader(){
-    return {
-        dwMagic: 0x20534444,
-        dwSize: 124,
-        dwFlags: 0x1 | 0x2 | 0x4 | 0x1000,
-        dwHeight: 0,
-        dwWidth: 0,
-        dwPitchOrLinearSize: 0,
-        dwDepth: 0,
-        dwMipMapCount: 0,
-        dwReserved1: new Array(11).fill(0),
-        ddspf: {
-            dwSize: 32,
-            dwFlags: 0x4,
-            dwFourCC: 0,
-            dwRGBBitCount: 0,
-            dwRBitMask: 0,
-            dwGBitMask: 0,
-            dwBBitMask: 0,
-            dwABitMask: 0
-        },
-        dwCaps: 0x1000,
-        dwCaps2: 0,
-        dwCaps3: 0,
-        dwCaps4: 0,
-        dwReserved2: 0
-    };
-}
-
 function align(number, alignment) {
     const remainder = number % alignment;
     if (remainder === 0) {
