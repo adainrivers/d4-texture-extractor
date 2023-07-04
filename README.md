@@ -34,6 +34,7 @@ Options:
   -nsf, --noslicefolders       Do not use slice folders, instead save slicers to the output folder, prefixed with the file name
   -h, --help                   display help for command
 ```
+You can find the full list of texture file names [here](https://gist.githubusercontent.com/adainrivers/d0de60a2abb6502fc0c0f0c805df4a36/raw/fe2a29aeaa10e1b858c9bf7914f0dd93e2c610a0/TextureNames.txt)
 
 **Example 1:** Extract and convert all texture files starting with 2D into webp folder in webp format.
 
