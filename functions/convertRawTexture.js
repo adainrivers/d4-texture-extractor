@@ -209,6 +209,8 @@ function convertRawTexture(textureFilePath, ddsFilePath, textureData) {
     header.writeUInt32LE(height, 12); // height
     header.writeUInt32LE(width, 16); // width
     header.writeUInt32LE(count, 20); // pitch or linear size
+    header.writeUInt32LE(0, 24); // depth
+    header.writeUInt32LE(1, 28); // mip map count
 
     // rest of header structure...
 

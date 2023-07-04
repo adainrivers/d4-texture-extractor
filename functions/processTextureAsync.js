@@ -34,7 +34,7 @@ async function processTextureInternal(key, data) {
 
     convertRawTexture(textureFilePath, ddsSourceFilePath, data);
 
-    const texconvCommand = buildCommandLine(texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-y', `-o "${tempFolder}"`]);
+    const texconvCommand = buildCommandLine(texconvCommandLine, [`"${ddsSourceFilePath}"`, '-ft png', '-f R8G8B8A8_UNORM', '-y', `-o "${tempFolder}"`]);
     try {
         logger.debug('converting dds:', ddsSourceFilePath)
         runCommand(texconvCommand);
