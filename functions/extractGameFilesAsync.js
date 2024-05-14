@@ -10,9 +10,9 @@ async function extractGameFilesAsync() {
         await fs.remove(baseFolder);
 
     logger.log('extracting game texture definitions: ' + options.filter);
-    runCommand(`\"${options.cascConsolePath}\" -m Pattern -e \"Base\\meta\\Texture\\${options.filter}.tex\" -d ${options.gameDataFolder} -l All -p fenris -s \"${options.gameFolder}\"`);
+    runCommand(`\"${options.cascConsolePath}\" -m Pattern -e \"Base\\meta\\Texture\\${options.filter}.tex\" -d \"${options.gameDataFolder}\" -l All -p fenris -s \"${options.gameFolder}\"`);
     logger.log('extracting game textures: ' + options.filter);
-    runCommand(`\"${options.cascConsolePath}\" -m Pattern -e \"Base\\payload\\Texture\\${options.filter}.tex\" -d ${options.gameDataFolder} -l All -p fenris -s \"${options.gameFolder}\"`);
+    runCommand(`\"${options.cascConsolePath}\" -m Pattern -e \"Base\\payload\\Texture\\${options.filter}.tex\" -d \"${options.gameDataFolder}\" -l All -p fenris -s \"${options.gameFolder}\"`);
 }
 
 module.exports = extractGameFilesAsync;
